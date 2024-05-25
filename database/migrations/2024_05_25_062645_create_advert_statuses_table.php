@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('advert_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 25)->change();
+            $table->string('name', 25);
             $table->timestamps();
         });
     }

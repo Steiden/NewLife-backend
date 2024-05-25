@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_blockings', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('period');
-            $table->string('reason', 100)->change();
+            $table->string('reason', 100);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

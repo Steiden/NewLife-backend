@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('advert_address', function (Blueprint $table) {
             $table->id();
-            $table->string('street_name', 100)->change();
-            $table->string('house_number', 5)->change();
+            $table->string('street_name', 100);
+            $table->string('house_number', 5);
             $table->unsignedBigInteger('locality_id');
             $table->timestamps();
 

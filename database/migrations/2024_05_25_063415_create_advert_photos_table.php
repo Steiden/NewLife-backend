@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('advert_photos', function (Blueprint $table) {
             $table->id();
-            $table->string('image', 255)->change();
+            $table->string('image', 255);
             $table->unsignedBigInteger('advert_id');
             $table->timestamps();
 
