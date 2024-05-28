@@ -7,52 +7,55 @@ use Illuminate\Support\Facades\DB;
 
 class RegionController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         try {
-            $regions = DB::statement('SELECT * FROM regions');
+            $regions = DB::select('SELECT * FROM regions');
             return response()->json(['success' => true, 'data' => $regions]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         try {
-            $region = DB::statement('SELECT * FROM regions WHERE id = ?', [$id]);
+            $region = DB::select('SELECT * FROM regions WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $region]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         try {
-            $region = DB::statement('INSERT INTO regions (region) VALUES (?)', [$request->region]);
+            $region = DB::insert('INSERT INTO regions (name) VALUES (?)', [$request->name]);
             return response()->json(['success' => true, 'data' => $region]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         try {
-            $region = DB::statement('UPDATE regions SET region = ? WHERE id = ?', [$request->region, $id]);
+            if ($request->has('name')) {
+                $region = DB::update('UPDATE regions SET name = ? WHERE id = ?', [$request->name, $id]);
+            }
+
             return response()->json(['success' => true, 'data' => $region]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         try {
-            $region = DB::statement('DELETE FROM regions WHERE id = ?', [$id]);
+            $region = DB::delete('DELETE FROM regions WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $region]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }

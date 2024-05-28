@@ -7,52 +7,59 @@ use Illuminate\Support\Facades\DB;
 
 class UserActionController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         try {
-            $userActions = DB::statement('SELECT * FROM user_actions');
+            $userActions = DB::select('SELECT * FROM user_actions');
             return response()->json(['success' => true, 'data' => $userActions]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         try {
-            $userAction = DB::statement('SELECT * FROM user_actions WHERE id = ?', [$id]);
+            $userAction = DB::select('SELECT * FROM user_actions WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $userAction]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         try {
-            $userAction = DB::statement('INSERT INTO user_actions (name) VALUES (?)', [$request->name]);
+            $userAction = DB::insert('INSERT INTO user_actions (user_action_type_id, user_id) VALUES (?, ?)', [$request->user_action_type_id, $request->user_id]);
             return response()->json(['success' => true, 'data' => $userAction]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         try {
-            $userAction = DB::statement('UPDATE user_actions SET name =? WHERE id =?', [$request->name, $id]);
+            if ($request->has('user_action_type_id')) {
+                $userAction = DB::update('UPDATE user_actions SET user_action_type_id = ? WHERE id = ?', [$request->user_action_type_id, $id]);
+            }
+
+            if ($request->has('user_id')) {
+                $userAction = DB::update('UPDATE user_actions SET user_id = ? WHERE id = ?', [$request->user_id, $id]);
+            }
+
             return response()->json(['success' => true, 'data' => $userAction]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         try {
-            $userAction = DB::statement('DELETE FROM user_actions WHERE id = ?', [$id]);
+            $userAction = DB::delete('DELETE FROM user_actions WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $userAction]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }

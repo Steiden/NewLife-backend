@@ -7,52 +7,59 @@ use Illuminate\Support\Facades\DB;
 
 class AdvertPhotoController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         try {
-            $advertPhotos = DB::statement('SELECT * FROM advert_photos');
+            $advertPhotos = DB::select('SELECT * FROM advert_photos');
             return response()->json(['success' => true, 'data' => $advertPhotos], 200);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         try {
-            $advertPhoto = DB::statement('SELECT * FROM advert_photos WHERE id = ?', [$id]);
+            $advertPhoto = DB::select('SELECT * FROM advert_photos WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $advertPhoto], 200);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         try {
-            $advertPhoto = DB::statement('INSERT INTO advert_photos (photo) VALUES (?)', [$request->photo]);
+            $advertPhoto = DB::insert('INSERT INTO advert_photos (image, advert_id), VALUES (?, ?)', [$request->image, $request->advert_id]);
             return response()->json(['success' => true, 'data' => $advertPhoto], 200);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         try {
-            $advertPhoto = DB::statement('UPDATE advert_photos SET photo = ? WHERE id = ?', [$request->photo, $id]);
+            if ($request->has('image')) {
+                $advertPhoto = DB::update('UPDATE advert_photos SET image = ? WHERE id = ?', [$request->image, $id]);
+            }
+
+            if ($request->has('advert_id')) {
+                $advertPhoto = DB::update('UPDATE advert_photos SET advert_id = ? WHERE id = ?', [$request->advert_id, $id]);
+            }
+
             return response()->json(['success' => true, 'data' => $advertPhoto], 200);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         try {
-            $advertPhoto = DB::statement('DELETE FROM advert_photos WHERE id = ?', [$id]);
+            $advertPhoto = DB::delete('DELETE FROM advert_photos WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $advertPhoto], 200);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

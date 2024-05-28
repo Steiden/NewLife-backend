@@ -9,7 +9,7 @@ class RoleController extends Controller
 {
     public function index() {
         try {
-            $roles = DB::statement('SELECT * FROM roles');
+            $roles = DB::select('SELECT * FROM roles');
             return response()->json(['success' => true, 'data' => $roles]);
         }
         catch (\Exception $e) {
@@ -19,7 +19,7 @@ class RoleController extends Controller
 
     public function store(Request $request) {
         try {
-            $role = DB::statement('INSERT INTO roles (name) VALUES (?)', [$request->name]);
+            $role = DB::insert('INSERT INTO roles (name) VALUES (?)', [$request->name]);
             return response()->json(['success' => true, 'data' => $role]);
         }
         catch (\Exception $e) {
@@ -29,7 +29,7 @@ class RoleController extends Controller
 
     public function update(Request $request, $id) {
         try {
-            $role = DB::statement('UPDATE roles SET name =? WHERE id =?', [$request->name, $id]);
+            $role = DB::update('UPDATE roles SET name =? WHERE id =?', [$request->name, $id]);
             return response()->json(['success' => true, 'data' => $role]);
         }
         catch (\Exception $e) {
@@ -39,7 +39,7 @@ class RoleController extends Controller
 
     public function destroy($id) {
         try {
-            $role = DB::statement('DELETE FROM roles WHERE id = ?', [$id]);
+            $role = DB::delete('DELETE FROM roles WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $role]);
         }
         catch (\Exception $e) {

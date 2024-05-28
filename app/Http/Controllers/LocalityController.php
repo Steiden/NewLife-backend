@@ -7,52 +7,59 @@ use Illuminate\Support\Facades\DB;
 
 class LocalityController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         try {
-            $localities = DB::statement('SELECT * FROM localities');
+            $localities = DB::select('SELECT * FROM localities');
             return response()->json(['success' => true, 'data' => $localities]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         try {
-            $locality = DB::statement('SELECT * FROM localities WHERE id = ?', [$id]);
+            $locality = DB::select('SELECT * FROM localities WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $locality]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         try {
-            $locality = DB::statement('INSERT INTO localities (locality) VALUES (?)', [$request->locality]);
+            $locality = DB::insert('INSERT INTO localities (name, region_id) VALUES (?, ?)', [$request->name, $request->region_id]);
             return response()->json(['success' => true, 'data' => $locality]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         try {
-            $locality = DB::statement('UPDATE localities SET locality = ? WHERE id = ?', [$request->locality, $id]);
+            if ($request->has('name')) {
+                $locality = DB::update('UPDATE localities SET name = ? WHERE id = ?', [$request->name, $id]);
+            }
+
+            if ($request->has('region_id')) {
+                $locality = DB::update('UPDATE localities SET region_id = ? WHERE id = ?', [$request->region_id, $id]);
+            }
+
             return response()->json(['success' => true, 'data' => $locality]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         try {
-            $locality = DB::statement('DELETE FROM localities WHERE id = ?', [$id]);
+            $locality = DB::delete('DELETE FROM localities WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $locality]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }

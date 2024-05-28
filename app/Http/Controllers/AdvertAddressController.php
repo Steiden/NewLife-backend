@@ -10,7 +10,7 @@ class AdvertAddressController extends Controller
     public function index()
     {
         try {
-            $advertAddress = DB::statement('SELECT * FROM advert_address');
+            $advertAddress = DB::select('SELECT * FROM advert_address');
             return response()->json(['success' => true, 'data' => $advertAddress], 200);
 
         } catch (\Exception $e) {
@@ -21,7 +21,7 @@ class AdvertAddressController extends Controller
     public function show($id)
     {
         try {
-            $advertAddress = DB::statement('SELECT * FROM advert_address WHERE id = ?', [$id]);
+            $advertAddress = DB::select('SELECT * FROM advert_address WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $advertAddress], 200);
 
         } catch (\Exception $e) {
@@ -32,7 +32,7 @@ class AdvertAddressController extends Controller
     public function store(Request $request)
     {
         try {
-            $advertAddress = DB::statement('INSERT INTO advert_address (address) VALUES (?)', [$request->address]);
+            $advertAddress = DB::insert('INSERT INTO advert_address (street_name, house_number, locality_id) VALUES (?, ?, ?)', [$request->street_name, $request->house_number, $request->locality_id]);
             return response()->json(['success' => true, 'data' => $advertAddress], 200);
 
         } catch (\Exception $e) {
@@ -43,7 +43,18 @@ class AdvertAddressController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $advertAddress = DB::statement('UPDATE advert_address SET address = ? WHERE id = ?', [$request->address, $id]);
+            if ($request->has('street_name')) {
+                $advertAddress = DB::update('UPDATE advert_address SET street_name = ? WHERE id = ?', [$request->street_name, $id]);
+            }
+
+            if ($request->has('house_number')) {
+                $advertAddress = DB::update('UPDATE advert_address SET house_number = ? WHERE id = ?', [$request->house_number, $id]);
+            }
+
+            if ($request->has('locality_id')) {
+                $advertAddress = DB::update('UPDATE advert_address SET locality_id = ? WHERE id = ?', [$request->locality_id, $id]);
+            }
+
             return response()->json(['success' => true, 'data' => $advertAddress], 200);
 
         } catch (\Exception $e) {
@@ -54,7 +65,7 @@ class AdvertAddressController extends Controller
     public function destroy($id)
     {
         try {
-            $advertAddress = DB::statement('DELETE FROM advert_address WHERE id = ?', [$id]);
+            $advertAddress = DB::delete('DELETE FROM advert_address WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $advertAddress], 200);
 
         } catch (\Exception $e) {
