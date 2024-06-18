@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdvertResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +12,7 @@ class AdvertController extends Controller
     {
         try {
             $adverts = DB::select('SELECT * FROM adverts');
-            return response()->json(['success' => true, 'data' => $adverts], 200);
+            return response()->json(['success' => true, 'data' => AdvertResource::collection($adverts)], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 400);
         }
@@ -21,7 +22,7 @@ class AdvertController extends Controller
     {
         try {
             $advert = DB::select('SELECT * FROM adverts WHERE id = ?', [$id]);
-            return response()->json(['success' => true, 'data' => $advert], 200);
+            return response()->json(['success' => true, 'data' => new AdvertResource($advert)], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 400);
         }
