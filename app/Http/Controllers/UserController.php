@@ -28,6 +28,15 @@ class UserController extends Controller
         }
     }
 
+    public function getByLogin($login) {
+        try {
+            $user = DB::selectOne('SELECT * FROM users WHERE login = ?', [$login]);
+            return response()->json(['success' => true, 'data' => new UserResource($user)]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
+
     public function store(Request $request)
     {
         try {
