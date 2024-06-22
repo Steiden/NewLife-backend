@@ -31,7 +31,7 @@ class AdvertController extends Controller
     public function store(Request $request)
     {
         try {
-            $advert = DB::insert('INSERT INTO adverts (title, description, animal_type_id, advert_address_id, user_id, advert_status_id) VALUES (?, ?, ?, ?, ?, ?)', [$request->title, $request->description, $request->animal_type_id, $request->advert_address_id, $request->user_id, $request->advert_status_id]);
+            $advert = DB::insert('INSERT INTO adverts (title, description, animal_type_id, advert_address_id, user_id, advert_status_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [$request->title, $request->description, $request->animal_type_id, $request->advert_address_id, $request->user_id, $request->advert_status_id, now(), now()]);
             return response()->json(['success' => true, 'data' => $advert], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 400);

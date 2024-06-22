@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'На рассмотрении',
         // ]);
         // AdvertStatus::create([
-        //     'name' => 'Опубликован',
+        //     'name' => 'Опубликовано',
         // ]);
         // AdvertStatus::create([
         //     'name' => 'Отклонено',
@@ -76,11 +76,11 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // Region::factory(10)->create();
-        Locality::factory(10)->create();
-        AdvertAddress::factory(10)->create();
+        // Locality::factory(10)->create();
+        // AdvertAddress::factory(60)->create();
         
         // User::factory(10)->create();
-        Advert::factory(10)->create();
-        AdvertPhoto::factory(10)->create();
+        Advert::factory(30)->create();
+        AdvertPhoto::factory(30)->create();
     }
 }
