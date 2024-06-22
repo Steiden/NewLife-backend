@@ -18,7 +18,7 @@ class LocalityFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->streetAddress(),
+            'name' => $this->faker->country(),
             'region_id' => Region::all()->random()->id
         ];
     }

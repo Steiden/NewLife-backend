@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdvertAddressResource;
+use App\Models\AdvertAddress;
+use Database\Factories\AdvertAddressFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,9 +35,10 @@ class AdvertAddressController extends Controller
     public function store(Request $request)
     {
         try {
-            $advertAddress = DB::insert('INSERT INTO advert_address (street_name, house_number, locality_id) VALUES (?, ?, ?)', [$request->street_name, $request->house_number, $request->locality_id]);
-            return response()->json(['success' => true, 'data' => $advertAddress], 200);
-
+            $result = DB::insert('INSERT INTO advert_address (street_name, house_number, locality_id) VALUES (?, ?, ?)', [$request->street_name, $request->house_number, $request->locality_id]);
+            $advertAddresses = DB::select('SELECT * FROM advert_address WHERE street_name = ? AND house_number = ? AND locality_id = ?', [$request->street_name, $request->house_number, $request->locality_id]);
+            $advertAddress = array_pop($advertAddresses);
+            return response()->json(['success' => true, 'data' => new AdvertAddressResource($advertAddress)], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }

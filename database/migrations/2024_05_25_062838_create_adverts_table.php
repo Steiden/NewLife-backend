@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('animal_type_id');
             $table->unsignedBigInteger('advert_address_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('advert_status_id');
+            $table->unsignedBigInteger('advert_status_id')->default(1);
             $table->timestamps();
 
             $table->foreign('animal_type_id')->references('id')->on('animal_types');

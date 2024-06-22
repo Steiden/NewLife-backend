@@ -28,7 +28,8 @@ class UserController extends Controller
         }
     }
 
-    public function getByLogin($login) {
+    public function getByLogin($login)
+    {
         try {
             $user = DB::selectOne('SELECT * FROM users WHERE login = ?', [$login]);
             return response()->json(['success' => true, 'data' => new UserResource($user)]);
@@ -41,7 +42,7 @@ class UserController extends Controller
     {
         try {
             $user = DB::insert('INSERT INTO users (second_name, first_name, patronymic, telephone, email, login, password, is_banned, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [$request->second_name, $request->first_name, $request->patronymic, $request->telephone, $request->email, $request->login, $request->password, $request->is_banned, $request->role_id]);
-            return response()->json(['success' => true, 'data' => $user]);
+            return response()->json(['success' => true, 'data' => new UserResource(DB::selectOne('SELECT * FROM users WHERE login = ?', [$request->login]))]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }

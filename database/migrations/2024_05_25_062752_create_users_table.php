@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('second_name', 50);
             $table->string('first_name', 50);
             $table->string('patronymic', 50);
-            $table->string('telephone', 11);
+            $table->string('telephone', 12);
             $table->string('email', 50);
             $table->string('login', 25);
             $table->string('password', 64);
