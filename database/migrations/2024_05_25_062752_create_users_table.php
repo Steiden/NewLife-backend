@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('email', 50);
             $table->string('login', 25);
             $table->string('password', 64);
-            $table->boolean('is_banned');
-            $table->unsignedBigInteger('role_id');
+            $table->boolean('is_banned')->default(false);
+            $table->unsignedBigInteger('role_id')->default(2);
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
