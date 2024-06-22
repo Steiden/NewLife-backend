@@ -20,7 +20,7 @@ class UserActionController extends Controller
     public function show($id)
     {
         try {
-            $userAction = DB::select('SELECT * FROM user_actions WHERE id = ?', [$id]);
+            $userAction = DB::selectOne('SELECT * FROM user_actions WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $userAction]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

@@ -20,7 +20,7 @@ class UserActionTypeController extends Controller
     public function show($id)
     {
         try {
-            $userActionType = DB::select('SELECT * FROM user_action_types WHERE id = ?', [$id]);
+            $userActionType = DB::selectOne('SELECT * FROM user_action_types WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $userActionType]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);

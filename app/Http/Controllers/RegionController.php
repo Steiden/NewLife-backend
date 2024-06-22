@@ -20,7 +20,7 @@ class RegionController extends Controller
     public function show($id)
     {
         try {
-            $region = DB::select('SELECT * FROM regions WHERE id = ?', [$id]);
+            $region = DB::selectOne('SELECT * FROM regions WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $region]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

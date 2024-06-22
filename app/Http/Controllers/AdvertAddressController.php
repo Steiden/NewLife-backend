@@ -21,7 +21,7 @@ class AdvertAddressController extends Controller
     public function show($id)
     {
         try {
-            $advertAddress = DB::select('SELECT * FROM advert_address WHERE id = ?', [$id]);
+            $advertAddress = DB::selectOne('SELECT * FROM advert_address WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $advertAddress], 200);
 
         } catch (\Exception $e) {

@@ -21,7 +21,7 @@ class AdvertController extends Controller
     public function show($id)
     {
         try {
-            $advert = DB::select('SELECT * FROM adverts WHERE id = ?', [$id]);
+            $advert = DB::selectOne('SELECT * FROM adverts WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => new AdvertResource($advert)], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 400);

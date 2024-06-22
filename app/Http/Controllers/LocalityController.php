@@ -20,7 +20,7 @@ class LocalityController extends Controller
     public function show($id)
     {
         try {
-            $locality = DB::select('SELECT * FROM localities WHERE id = ?', [$id]);
+            $locality = DB::selectOne('SELECT * FROM localities WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $locality]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

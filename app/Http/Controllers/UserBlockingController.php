@@ -20,7 +20,7 @@ class UserBlockingController extends Controller
     public function show($id)
     {
         try {
-            $userBlocking = DB::select('SELECT * FROM user_blockings WHERE id = ?', [$id]);
+            $userBlocking = DB::selectOne('SELECT * FROM user_blockings WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $userBlocking]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

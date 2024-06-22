@@ -20,7 +20,7 @@ class AdvertStatusController extends Controller
     public function show($id)
     {
         try {
-            $advertStatus = DB::select('SELECT * FROM advert_statuses WHERE id = ?', [$id]);
+            $advertStatus = DB::selectOne('SELECT * FROM advert_statuses WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $advertStatus]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

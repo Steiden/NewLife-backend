@@ -21,7 +21,7 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = DB::select('SELECT * FROM users WHERE id = ?', [$id]);
+            $user = DB::selectOne('SELECT * FROM users WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => new UserResource($user)]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

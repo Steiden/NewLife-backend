@@ -20,7 +20,7 @@ class AnimalTypeController extends Controller
     public function show($id)
     {
         try {
-            $animalType = DB::select('SELECT * FROM animal_types WHERE id = ?', [$id]);
+            $animalType = DB::selectOne('SELECT * FROM animal_types WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $animalType]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

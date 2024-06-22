@@ -20,7 +20,7 @@ class AdvertPhotoController extends Controller
     public function show($id)
     {
         try {
-            $advertPhoto = DB::select('SELECT * FROM advert_photos WHERE id = ?', [$id]);
+            $advertPhoto = DB::selectOne('SELECT * FROM advert_photos WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $advertPhoto], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
