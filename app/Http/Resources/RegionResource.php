@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Locality;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdvertAddressResource extends JsonResource
+class RegionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +16,9 @@ class AdvertAddressResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'street_name' => $this->street_name,
-            'house_number' => $this->house_number,
-            'locality' => new LocalityResource(Locality::find($this->locality_id)),
+            'name' => $this->name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }
