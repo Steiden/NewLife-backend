@@ -40,10 +40,11 @@ class AnimalTypeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if ($request->has('name')) {
-                $animalType = DB::update('UPDATE animal_types SET name = ? WHERE id = ?', [$request->name, $id]);
+            if ($request->has('name') && isset($request->name)) {
+                $result = DB::update('UPDATE animal_types SET name = ? WHERE id = ?', [$request->name, $id]);
             }
-
+            DB::update('UPDATE animal_types set updated_at = ? WHERE id = ?', [now(), $id]);
+            $animalType = DB::selectOne('SELECT * FROM animal_types WHERE id = ?', [$id]);
             return response()->json(['success' => true, 'data' => $animalType]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

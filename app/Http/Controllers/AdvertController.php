@@ -31,8 +31,9 @@ class AdvertController extends Controller
     public function store(Request $request)
     {
         try {
-            $advert = DB::insert('INSERT INTO adverts (title, description, animal_type_id, advert_address_id, user_id, advert_status_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [$request->title, $request->description, $request->animal_type_id, $request->advert_address_id, $request->user_id, $request->advert_status_id, now(), now()]);
-            return response()->json(['success' => true, 'data' => $advert], 200);
+            $result = DB::insert('INSERT INTO adverts (title, description, animal_type_id, advert_address_id, user_id, advert_status_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [$request->title, $request->description, $request->animal_type_id, $request->advert_address_id, $request->user_id, $request->advert_status_id, now(), now()]);
+            $adverts = DB::select('SELECT * FROM adverts WHERE title = ? AND description = ? AND animal_type_id = ? AND advert_address_id = ? AND user_id = ? AND advert_status_id = ?', [$request->title, $request->description, $request->animal_type_id, $request->advert_address_id, $request->user_id, $request->advert_status_id]);
+            return response()->json(['success' => true, 'data' => new AdvertResource(array_pop($adverts))], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 400);
         }
@@ -60,6 +61,8 @@ class AdvertController extends Controller
             if ($request->has('advert_status_id') && isset($request->advert_status_id)) {
                 $result = DB::update('UPDATE adverts SET advert_status_id = ? WHERE id = ?', [$request->advert_status_id, $id]);
             }
+
+            DB::update('UPDATE adverts SET updated_at = ? WHERE id = ?', [now(), $id]);
 
             $advert = DB::selectOne('SELECT * FROM adverts WHERE id = ?', [$id]);
 

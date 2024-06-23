@@ -12,6 +12,7 @@ use App\Http\Controllers\UserActionController;
 use App\Http\Controllers\UserActionTypeController;
 use App\Http\Controllers\UserBlockingController;
 use App\Http\Controllers\UserController;
+use App\Models\UserActionType;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('roles')->group(function () {
@@ -50,47 +51,47 @@ Route::prefix('advert-statuses')->group(function () {
 
 Route::prefix('animal-types')->group(function () {
     Route::get('/', [AnimalTypeController::class, 'index']);
-    Route::get('/{id}', [AdvertController::class, 'show']);
-    Route::post('/', [AdvertController::class, 'store']);
-    Route::put('/{id}', [AdvertController::class, 'update']);
-    Route::delete('/{id}', [AdvertController::class, 'destroy']);
+    Route::get('/{id}', [AnimalTypeController::class, 'show']);
+    Route::post('/', [AnimalTypeController::class, 'store']);
+    Route::put('/{id}', [AnimalTypeController::class, 'update']);
+    Route::delete('/{id}', [AnimalTypeController::class, 'destroy']);
 });
 
 Route::prefix('localities')->group(function () {
     Route::get('/', [LocalityController::class, 'index']);
-    Route::get('/{id}', [AdvertController::class, 'show']);
-    Route::post('/', [AdvertController::class, 'store']);
-    Route::put('/{id}', [AdvertController::class, 'update']);
-    Route::delete('/{id}', [AdvertController::class, 'destroy']);
+    Route::get('/{id}', [LocalityController::class, 'show']);
+    Route::post('/', [LocalityController::class, 'store']);
+    Route::put('/{id}', [LocalityController::class, 'update']);
+    Route::delete('/{id}', [LocalityController::class, 'destroy']);
 });
 
 Route::prefix('regions')->group(function () {
     Route::get('/', [RegionController::class, 'index']);
-    Route::get('/{id}', [AdvertController::class, 'show']);
-    Route::post('/', [AdvertController::class, 'store']);
-    Route::put('/{id}', [AdvertController::class, 'update']);
-    Route::delete('/{id}', [AdvertController::class, 'destroy']);
+    Route::get('/{id}', [RegionController::class, 'show']);
+    Route::post('/', [RegionController::class, 'store']);
+    Route::put('/{id}', [RegionController::class, 'update']);
+    Route::delete('/{id}', [RegionController::class, 'destroy']);
 });
 
 Route::prefix('user-actions')->group(function () {
     Route::get('/', [UserActionController::class, 'index']);
-    Route::get('/{id}', [AdvertController::class, 'show']);
-    Route::post('/', [AdvertController::class, 'store']);
-    Route::put('/{id}', [AdvertController::class, 'update']);
-    Route::delete('/{id}', [AdvertController::class, 'destroy']);
+    Route::get('/{id}', [UserActionController::class, 'show']);
+    Route::post('/', [UserActionController::class, 'store']);
+    Route::put('/{id}', [UserActionController::class, 'update']);
+    Route::delete('/{id}', [UserActionController::class, 'destroy']);
 });
 
 Route::prefix('user-action-types')->group(function () {
     Route::get('/', [UserActionTypeController::class, 'index']);
-    Route::get('/{id}', [AdvertController::class, 'show']);
+    Route::get('/{id}', [UserActionType::class, 'show']);
 });
 
 Route::prefix('user-blockings')->group(function () {
     Route::get('/', [UserBlockingController::class, 'index']);
-    Route::get('/{id}', [AdvertController::class, 'show']);
-    Route::post('/', [AdvertController::class, 'store']);
-    Route::put('/{id}', [AdvertController::class, 'update']);
-    Route::delete('/{id}', [AdvertController::class, 'destroy']);
+    Route::get('/{id}', [UserBlockingController::class, 'show']);
+    Route::post('/', [UserBlockingController::class, 'store']);
+    Route::put('/{id}', [UserBlockingController::class, 'update']);
+    Route::delete('/{id}', [UserBlockingController::class, 'destroy']);
 });
 
 Route::prefix('users')->group(function () {

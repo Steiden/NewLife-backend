@@ -87,6 +87,8 @@ class UserController extends Controller
                 $result = DB::update('UPDATE users SET role_id = ? WHERE id = ?', [$request->role_id, $id]);
             }
 
+            DB::update('UPDATE users SET updated_at = NOW() WHERE id = ?', [$id]);
+
             $user = DB::selectOne('SELECT * FROM users WHERE id = ?', [$id]);
 
             return response()->json(['success' => true, 'data' => new UserResource($user)]);

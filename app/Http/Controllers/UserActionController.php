@@ -30,7 +30,7 @@ class UserActionController extends Controller
     public function store(Request $request)
     {
         try {
-            $userAction = DB::insert('INSERT INTO user_actions (user_action_type_id, user_id) VALUES (?, ?)', [$request->user_action_type_id, $request->user_id]);
+            $userAction = DB::insert('INSERT INTO user_actions (user_action_type_id, user_id, created_at) VALUES (?, ?, ?)', [$request->user_action_type_id, $request->user_id, now()]);
             return response()->json(['success' => true, 'data' => $userAction]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);

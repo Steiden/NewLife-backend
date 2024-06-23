@@ -28,6 +28,7 @@ class AdvertResource extends JsonResource
             'user' => new UserResource(User::find($this->user_id)),
             'user_id' => $this->user_id,
             'advert_status' => AdvertStatus::find($this->advert_status_id),
+            'advert_status_id' => $this->advert_status_id,
             'advert_photos' => AdvertPhoto::where('advert_id', $this->id)->get(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
