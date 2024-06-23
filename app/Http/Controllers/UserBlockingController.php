@@ -30,7 +30,8 @@ class UserBlockingController extends Controller
     public function store(Request $request)
     {
         try {
-            $userBlocking = DB::insert('INSERT INTO user_blockings (period, reason, user_id) VALUES (?, ?, ?)', [$request->period, $request->reason, $request->user_id]);
+            $result = DB::insert('INSERT INTO user_blockings (period, reason, user_id, created_at) VALUES (?, ?, ?, ?)', [$request->period, $request->reason, $request->user_id, now()]);
+            $userBlocking = DB::selectOne('SELECT * FROM user_blockings WHERE period = ? AND reason = ? AND user_id = ?', [$request->period, $request->reason, $request->user_id]);
             return response()->json(['success' => true, 'data' => $userBlocking]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
