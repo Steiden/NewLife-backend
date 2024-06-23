@@ -12,6 +12,7 @@ use App\Models\Region;
 use App\Models\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserActionType;
 use Database\Factories\AdvertFactory;
 use Illuminate\Database\Seeder;
 
@@ -73,6 +74,22 @@ class DatabaseSeeder extends Seeder
         // ]);
         // AdvertStatus::create([
         //     'name' => 'Закрыто',
+        // ]);
+
+        // UserActionType::create([
+        //     'name' => 'Создание объявления',
+        // ]);
+        // UserActionType::create([
+        //     'name' => 'Редактирование объявления',
+        // ]);
+        // UserActionType::create([
+        //     'name' => 'Удаление объявления',
+        // ]);
+        // UserActionType::create([
+        //     'name' => 'Редактирование личных данных',
+        // ]);
+        // UserActionType::create([
+        //     'name' => 'Вход в систему',
         // ]);
 
         // Region::factory(10)->create();
